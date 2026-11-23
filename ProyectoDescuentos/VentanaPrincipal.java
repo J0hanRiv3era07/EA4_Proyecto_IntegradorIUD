@@ -33,9 +33,28 @@ public class VentanaPrincipal extends JFrame {
         panel.add(new JScrollPane(areaResultado), BorderLayout.CENTER);
         add(panel);
 
-        // Evento del botón (por ahora solo prueba)
+                // Expresión lambda que calcula el descuento
+        CalculadoraDescuento calculadora = total -> {
+            if (total > 10) {
+                return total * 0.85; // 15% de descuento
+            }
+            return total;            // 0% de descuento
+        };
+
+
+        // Evento del botón
         btnCalcular.addActionListener(e -> {
-            areaResultado.append("Botón presionado\n");
+            try {
+                // 1. Obtener el monto
+                double monto = Double.parseDouble(txtMonto.getText());
+                // 2. Aplicar la lógica lambda
+                double montoFinal = calculadora.calcular(monto);
+                // 3. Mostrar el resultado
+                areaResultado.append("Monto original: $" + monto + "\n");
+                areaResultado.append("Monto final: $" + montoFinal + "\n");
+            } catch (NumberFormatException ex) {
+                areaResultado.append("Error: escribe un número válido.\n");
+            }
         });
     }
 }
