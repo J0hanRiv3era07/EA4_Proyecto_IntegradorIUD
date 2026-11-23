@@ -33,6 +33,10 @@ public class VentanaPrincipal extends JFrame {
         panel.add(new JScrollPane(areaResultado), BorderLayout.CENTER);
         add(panel);
 
+                // Probar conexión a la BD al iniciar
+        ConexionBD conexion = new ConexionBD();
+        areaResultado.append(conexion.probarConexion() + "\n");
+
                 // Expresión lambda que calcula el descuento
         CalculadoraDescuento calculadora = total -> {
             if (total > 10) {
